@@ -18,6 +18,12 @@ defmodule Tcp.Registry do
     {:noreply,  [{pid, client}|state]}
   end
 
+  @impl true
+  def handle_cast({:unregister, pid}, state) do
+    new_state = state |> Enum.filter(fn {p, _c} -> p != pid end)
+    {:noreply, new_state}
+  end
+
 
   ## Client API
 
@@ -34,6 +40,10 @@ defmodule Tcp.Registry do
 
   def register(pid, client) do
     GenServer.cast(__MODULE__, {:register, pid, client})
+  end
+
+  def unregister(pid) do
+    GenServer.cast(__MODULE__, {:unregister, pid})
   end
 
 

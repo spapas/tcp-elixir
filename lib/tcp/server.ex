@@ -24,6 +24,7 @@ defmodule Tcp.Server do
   @impl true
   def handle_info({:tcp_closed, socket}, state) do
     IO.puts "Tcp closed for #{inspect(socket)}"
+    Tcp.Registry.unregister(self())
     {:stop, :normal, state}
   end
 
