@@ -1,6 +1,6 @@
-# Tcp
+# Elixir - Tcp
 
-**TODO: Add description**
+**A basic TCP server in elixir**
 
 ## Installation
 
