@@ -2,20 +2,6 @@
 
 **A basic TCP server in elixir**
 
-## Installation
+## How is this working
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `tcp` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:tcp, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/tcp](https://hexdocs.pm/tcp).
-
+When the app starts it starts a `Tcp.Registry` genserver that will hold the genservers that will handle each tcp client (`Tcp.Server`). It will also start a `Tcp.Listener` task that will listen to the port for new connections. When the `Tcp.Listener` receives a connection it will start a new isntance of `Tcp.Server` and pass it the socket. It will also register this socket to the `Tcp.Registry`.
