@@ -8,6 +8,7 @@ defmodule Tcp.Listener do
   # the byte 32 it will return the next 32 bytes as a packet.
   # 2 will read the next 2 bytes to get the packet size (i.e packet size = 0-65535)
   def listen(port) do
+    Process.register(self(), :listener)
     {:ok, socket} = :gen_tcp.listen(port,
                       [:binary, packet: 1, active: true, reuseaddr: true])
     Logger.info "Accepting connections on port #{port}"

@@ -17,7 +17,7 @@ defmodule Tcp.Server do
 
   @impl true
   def handle_info({:tcp, _socket, message}, state) do
-    IO.puts "Got message #{inspect(message)}"
+    IO.puts "Got message (server) #{inspect(message)}"
     {:noreply, state}
   end
 
