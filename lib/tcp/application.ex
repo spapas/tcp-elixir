@@ -11,7 +11,8 @@ defmodule Tcp.Application do
       #{Task.Supervisor, name: Tcp.TaskSupervisor},
       {DynamicSupervisor, name: Tcp.ServerSupervisor, strategy: :one_for_one},
       {Task, fn -> Tcp.Listener.listen(4040) end},
-      Tcp.Registry
+      Tcp.Registry,
+      {ThousandIsland, port: 4041, handler_module: Tcp.ConnectionHandler}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
