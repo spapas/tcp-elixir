@@ -12,7 +12,7 @@ defmodule Tcp.Application do
       {DynamicSupervisor, name: Tcp.ServerSupervisor, strategy: :one_for_one},
       {Task, fn -> Tcp.Listener.listen(4040) end},
       Tcp.Registry,
-      {ThousandIsland, port: 4041, handler_module: Tcp.ConnectionHandler}
+      {ThousandIsland, port: 4041, handler_module: Tcp.ConnectionHandler, transport_options: [packet: 1]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
