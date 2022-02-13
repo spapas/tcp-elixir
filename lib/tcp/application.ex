@@ -8,9 +8,8 @@ defmodule Tcp.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      #{Task.Supervisor, name: Tcp.TaskSupervisor},
       {DynamicSupervisor, name: Tcp.ServerSupervisor, strategy: :one_for_one},
-      {Task, fn -> Tcp.Listener.listen(4040) end},
+      Supervisor.child_spec({Task, fn -> Tcp.Listener.listen(4040) end}, restart: :permanent),
       Tcp.Registry,
       {ThousandIsland, port: 4041, handler_module: Tcp.ConnectionHandler, transport_options: [packet: 1]}
     ]
